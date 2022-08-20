@@ -11,7 +11,6 @@ const HomeScreen = () => {
       <CustomHeader />
       <SearchBar />
       <View style={Styles.subContainer}>
-
         <FlatList
           data={foodDetails}
           showsVerticalScrollIndicator={false}

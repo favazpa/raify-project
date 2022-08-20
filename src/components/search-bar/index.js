@@ -6,6 +6,7 @@ import {
     TextInput,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
+
 const SearchBar = () => {
     return (
         <View style={Styles.container}>
@@ -16,7 +17,7 @@ const SearchBar = () => {
                     color='#7e8a9a'
                 />
             </View>
-            <TextInput style={{ fontSize: 13, fontFamily: 'Montserrat-Regular', width: '70%' }} placeholderTextColor='#7e8a9a' placeholder='Food name' />
+            <TextInput style={Styles.placeholder} placeholderTextColor='#7e8a9a' placeholder='Food name' />
         </View>
     );
 };
@@ -38,6 +39,11 @@ const Styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f5f5f5',
         borderRadius: 10,
+    },
+    placeholder: {
+        fontSize: 13,
+        fontFamily: 'Montserrat-Regular',
+        width: '70%'
     }
 });
 
