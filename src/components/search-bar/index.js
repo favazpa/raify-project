@@ -7,7 +7,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto';
 
-const SearchBar = () => {
+const SearchBar = ({
+    onSearchTextChange
+}) => {
     return (
         <View style={Styles.container}>
             <View style={Styles.searchIcon}>
@@ -17,7 +19,11 @@ const SearchBar = () => {
                     color='#7e8a9a'
                 />
             </View>
-            <TextInput style={Styles.placeholder} placeholderTextColor='#7e8a9a' placeholder='Food name' />
+            <TextInput
+                style={Styles.placeholder}
+                placeholderTextColor='#7e8a9a'
+                placeholder='Food name'
+                onChangeText={(text) => onSearchTextChange(text)} />
         </View>
     );
 };

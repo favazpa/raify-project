@@ -1,18 +1,69 @@
-import React from "react";
-import { Text, View, StyleSheet, ScrollView, FlatList, TouchableOpacity, ImageBackground } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Text, View, StyleSheet, ScrollView, FlatList, TouchableOpacity, ImageBackground, RefreshControl } from "react-native";
 import CustomHeader from "./src/components/header";
 import SearchBar from "./src/components/search-bar";
 import foodDetails from "./src/constants/food-details.json";
 import FoodCard from "./src/components/food-card";
 
 const HomeScreen = () => {
+  const [foodList, setFoodList] = useState(foodDetails);
+  const [searchedText, setSearchedText] = useState('');
+  const [searchedFoodList, setSearchedFoodList] = useState(foodDetails);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    handleRefresh();
+  }, []);
+
+  useEffect(() => {
+    if (loading) {
+      setFoodList(foodDetails);
+      setLoading(false);
+    }
+  }, [loading]);
+
+  useEffect(() => {
+    if (searchedText?.length) {
+      setLoading(true);
+      const searchedFoodResult = foodDetails?.filter(function (item) {
+        const searchedName = `${item?.Ingredient ?? ''}`?.toUpperCase();
+        const searchedTag = `${item?.ShortText ?? ''}`?.toUpperCase();
+        const textSearched = searchedText?.toUpperCase();
+        return (
+          searchedName?.indexOf(textSearched) > -1 ||
+          searchedTag?.indexOf(textSearched) > -1
+        );
+      });
+      setSearchedFoodList(searchedFoodResult);
+    } else setSearchedFoodList(foodDetails);
+  }, [searchedText]);
+
+  useEffect(() => {
+    setFoodList(searchedFoodList);
+    setLoading(false);
+  }, [searchedFoodList]);
+
+  const handleRefresh = () => {
+    setLoading(true);
+  };
+
+  const onSearchTextChange = (text) => {
+    setSearchedText(text);
+  };
+
   return (
     <View style={Styles.container}>
       <CustomHeader />
-      <SearchBar />
+      <SearchBar onSearchTextChange={(text) => onSearchTextChange(text)} />
       <View style={Styles.subContainer}>
         <FlatList
-          data={foodDetails}
+          refreshControl={
+            <RefreshControl
+              colors={["#9Bd35A", "#689F38"]}
+              refreshing={loading}
+              onRefresh={handleRefresh} />
+          }
+          data={foodList}
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => '' + index}
           style={{ paddingHorizontal: 5 }}
