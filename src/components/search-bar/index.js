@@ -49,7 +49,8 @@ const Styles = StyleSheet.create({
     placeholder: {
         fontSize: 13,
         fontFamily: 'Montserrat-Regular',
-        width: '70%'
+        width: '70%',
+        color: '#7e8a9a'
     }
 });
 

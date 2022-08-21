@@ -74,6 +74,11 @@ const HomeScreen = () => {
           ListHeaderComponent={<Text style={Styles.food}>Foods</Text>}
           ListFooterComponent={<View style={{ height: 50 }} />}
         />
+        {!foodList?.length &&
+          <View style={Styles.noSuchFoodContainer}>
+            <Text style={Styles.noSuchFoodText}>No such food</Text>
+          </View>
+        }
       </View>
     </View>
   );
@@ -99,7 +104,7 @@ const Styles = StyleSheet.create({
     fontWeight: 'bold',
     marginLeft: 15,
     marginBottom: 15,
-    fontFamily: 'Montserrat-Regular'
+    fontFamily: 'Montserrat-Regular',
   },
   listItemCard: {
     marginVertical: 9,
@@ -123,6 +128,16 @@ const Styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '500',
     color: '#7e8a9a'
+  },
+  noSuchFoodContainer: {
+    position: 'absolute',
+    top: '10%',
+    left: '40%'
+  },
+  noSuchFoodText: {
+    fontFamily: 'Montserrat-Medium',
+    fontSize: 16,
+    color: 'red'
   }
 });
 
